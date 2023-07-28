@@ -1,5 +1,6 @@
 from PyQt5.QtCore import *
 from PyQt5 import QtCore
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtWebEngineWidgets import *
@@ -25,10 +26,22 @@ class MainWindow(QMainWindow):
 
 		self.tabs.setTabsClosable(True)
 		self.tabs.tabCloseRequested.connect(self.close_current_tab)
-		self.tabs.setMovable(True)
+		self.tabs.setMovable(False)
 		self.tabs.setIconSize(QtCore.QSize(220,250))
 
+		#creating sidebar
+		toolbarBox = QToolBar(self)
+		toolbarBox.setFixedHeight(1000)
+		toolbarBox.setFixedWidth(100)
+		toolbarBox.setIconSize(QSize(100, 100))
+		toolbarBox.setMovable(False)
+		self.addToolBar(QtCore.Qt.LeftToolBarArea, toolbarBox)
+
+	
 		self.setCentralWidget(self.tabs)
+
+		self.showMaximized()
+		self.setWindowTitle("new window")
 
 		#status bar
 		self.status = QStatusBar()
@@ -131,50 +144,48 @@ class MainWindow(QMainWindow):
 		yt_btn = QAction(QIcon("icons/youtube.png") ,"Youtube", self)
 		yt_btn.setStatusTip("Go to Youtube")
 		yt_btn.triggered.connect(self.navigate_youtube)
-		navb2.addAction(yt_btn)
+		toolbarBox.addAction(yt_btn)
 
 
 		#creating gmail
 		gm_btn = QAction(QIcon("icons/gmail.png") ,"Gmail", self)
 		gm_btn.setStatusTip("Go to Gmail")
 		gm_btn.triggered.connect(self.navigate_gmail)
-		navb2.addAction(gm_btn)
+		toolbarBox.addAction(gm_btn)
 
 		# creating github
 		gith_btn = QAction(QIcon("icons/github.png") ,"Github", self)
 		gith_btn.setStatusTip("Go to GitHub")
 		gith_btn.triggered.connect(self.navigate_github)
-		navb2.addAction(gith_btn)
+		toolbarBox.addAction(gith_btn)
 
 		#creating stackoverflow
 		stk_btn = QAction(QIcon("icons/stackoverflow.png") ,"Stack Overflow", self)
 		stk_btn.setStatusTip("Go to Stack Overflow")
 		stk_btn.triggered.connect(self.navigate_stackoverflow)
-		navb2.addAction(stk_btn)
+		toolbarBox.addAction(stk_btn)
 
 		#creating instagram
 		insta_btn = QAction(QIcon("icons/instagram.png") ,"Instagram", self)
 		insta_btn.setStatusTip("Go to Instagram")
 		insta_btn.triggered.connect(self.navigate_instagram)
-		navb2.addAction(insta_btn)
+		toolbarBox.addAction(insta_btn)
 
 		#creating facebook
 		face_btn = QAction(QIcon("icons/facebook.png") ,"Facebook", self)
 		face_btn.setStatusTip("Go to Facebook")
 		face_btn.triggered.connect(self.navigate_facebook)
-		navb2.addAction(face_btn)
+		toolbarBox.addAction(face_btn)
 
 		#creating twitter
 		tw_btn = QAction(QIcon("icons/twitter.png") ,"Twitter", self)
 		tw_btn.setStatusTip("Go to Twitter")
 		tw_btn.triggered.connect(self.navigate_twitter)
-		navb2.addAction(tw_btn)
+		toolbarBox.addAction(tw_btn)
 
 		# creating first tab
 		self.add_new_tab(QUrl('http://www.google.com'), 'Homepage')
 
-		self.showMaximized()
-		self.setWindowTitle("new window")
 
 	#navigates
 	# action to go to home
